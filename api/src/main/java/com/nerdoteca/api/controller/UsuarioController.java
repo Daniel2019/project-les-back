@@ -3,7 +3,7 @@ package com.nerdoteca.api.controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("usuario")
+@RequestMapping("usuarios")
 public class UsuarioController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
