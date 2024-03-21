@@ -1,6 +1,5 @@
 package com.nerdoteca.api.dao;
 
-import com.nerdoteca.api.connection.Conexao;
 import com.nerdoteca.api.domain.Endereco;
 
 import java.sql.Connection;
@@ -15,11 +14,7 @@ public class EnderecoDAO {
     private Connection conexao;
 
     public EnderecoDAO() {
-        try {
-            this.conexao = Conexao.getConnection();
-        } catch (Exception ex) {
-            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, "Não foi possivel instabelecer conexão", ex);
-        }
+
     }
 
     public void salvar(Endereco endereco){

@@ -48,14 +48,6 @@ public class EnderecoContoller {
     @GetMapping("/listar/{id}")
     public Endereco listarEnderecoPorId(){
         Endereco endereco = new Endereco();
-        endereco.setId(01);
-
-        try {
-            this.enderecoDAO.consultarPorId(endereco);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
         return endereco;
     }
 
