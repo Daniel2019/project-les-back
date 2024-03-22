@@ -1,10 +1,25 @@
 package com.nerdoteca.api.domain;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "estados")
 public class Estado {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "est_id")
     private long id;
+
+    @Column(name = "est_nome")
     private String nome;
+
+    @Column(name = "est_sigla")
     private String sigla;
+
+    @Column(name = "est_pais")
     private String pais;
 
     public Estado() {
@@ -15,6 +30,14 @@ public class Estado {
         this.nome = nome;
         this.sigla = sigla;
         this.pais = pais;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNome() {

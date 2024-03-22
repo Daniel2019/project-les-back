@@ -1,9 +1,23 @@
 package com.nerdoteca.api.domain;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "cidades")
 public class Cidade {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cid_id")
     private long id;
+
+    @Column(name = "cid_nome")
     private String nome;
+
+    @ManyToOne
+    @JoinColumn(name = "cid_est_id")
     private Estado estado;
 
     public Cidade() {
@@ -13,6 +27,14 @@ public class Cidade {
         this.id = id;
         this.nome = nome;
         this.estado = estado;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNome() {

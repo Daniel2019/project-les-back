@@ -1,18 +1,45 @@
 package com.nerdoteca.api.domain;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "enderecos")
 public class Endereco {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "end_id")
     private long id;
+
+    @Column(name = "end_nome_endereco")
     private String nomeEndereco;
+
+    @Column(name = "end_tipo_endereco")
     private String tipoEndereco;
+
+    @Column(name = "end_tipo_residencia")
     private String tipoResidencia;
+
+    @Column(name = "end_cep")
     private String cep;
+
+    @Column(name = "end_logradouro")
     private String logradouro;
+
+    @Column(name = "end_tipo_logradouro")
     private String tipoLogradouro;
 
+    @Column(name = "end_numero")
     private int numero;
+
+    @Column(name = "end_bairro")
     private String bairro;
+
+    @ManyToOne
+    @JoinColumn(name = "end_cid_id")
     private Cidade cidade;
+
+    @Column(name = "end_observacoes")
     private String observacoes;
 
     public Endereco() {

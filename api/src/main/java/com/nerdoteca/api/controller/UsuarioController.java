@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("usuarios")
 public class UsuarioController {
-
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/listar")
     public String listarUsuarios(){

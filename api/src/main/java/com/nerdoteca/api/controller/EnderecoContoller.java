@@ -1,71 +1,71 @@
 package com.nerdoteca.api.controller;
 
-import com.nerdoteca.api.dao.EnderecoDAO;
 import com.nerdoteca.api.domain.Cidade;
 import com.nerdoteca.api.domain.Endereco;
 import com.nerdoteca.api.domain.Estado;
+import com.nerdoteca.api.repository.EnderecoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("enderecos")
 public class EnderecoContoller {
 
-    private EnderecoDAO enderecoDAO;
-
-    public EnderecoContoller() {
-        this.enderecoDAO = new EnderecoDAO();
-    }
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/listar")
-    public ArrayList<Endereco> listarEnderecos(){
-        ArrayList<Endereco> meusEnderecos = new ArrayList<Endereco>();
-
-        Estado estado = new Estado(01, "São Paulo", "SP", "Brasil");
-        Cidade cidade = new Cidade(01, "Poá", estado);
-
-        Endereco enderecoResidencial = new Endereco();
-        enderecoResidencial.setId(01);
-        enderecoResidencial.setNomeEndereco("Endereco residencial");
-        enderecoResidencial.setTipoEndereco("RESIDENCIAL");
-        enderecoResidencial.setCep("08555140");
-        enderecoResidencial.setTipoLogradouro("Rua");
-        enderecoResidencial.setLogradouro("Sapucaí");
-        enderecoResidencial.setNumero(104);
-        enderecoResidencial.setBairro("Jardim Santa Luiza");
-        enderecoResidencial.setTipoResidencia("Casa");
-        enderecoResidencial.setCidade(cidade);
-        enderecoResidencial.setObservacoes("Minha casa");
-
-        meusEnderecos.add(enderecoResidencial);
-
+    public List<Endereco> listarEnderecos(){
+        List<Endereco> meusEnderecos = enderecoRepository.findAll();
         return meusEnderecos;
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/listar/{id}")
-    public Endereco listarEnderecoPorId(){
-        Endereco endereco = new Endereco();
+    public Optional<Endereco> listarEnderecoPorId(@PathVariable long id){
+        Optional<Endereco> endereco = enderecoRepository.findById(id);
         return endereco;
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/cadastrar")
-    public String cadastrarEndereco(){
-        return "Teste 1";
+    public String cadastrarEndereco(@RequestBody Endereco endereco){
+        String message = "";
+
+        try {
+            enderecoRepository.saveAndFlush(endereco);
+            message = "Endereco cadastrado com sucesso!";
+        }catch (Exception error){
+            message = "Endereco nao cadastrado!";
+        }
+
+        return message;
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/atualizar/{id}")
-    public String atualizarEndereco(){
-        return "Teste 1";
+    public Endereco atualizarEndereco(@PathVariable long id, @RequestBody Endereco endereco){
+        enderecoRepository.findById(id);
+        enderecoRepository.saveAndFlush(endereco);
+        return endereco;
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/deletar/{id}")
-    public String deletarEndereco(){
-        return "Teste 1";
+    public String deletarEndereco(@PathVariable long id){
+        String message = "";
+
+        try{
+            enderecoRepository.deleteById(id);
+            message = "Enderecos deletado com sucesso";
+        }catch (Exception error){
+            message = "Enderecos nao deletado";
+        }
+
+        return message;
     }
 }
