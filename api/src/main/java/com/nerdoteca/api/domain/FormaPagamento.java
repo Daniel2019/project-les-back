@@ -20,11 +20,17 @@ public class FormaPagamento {
     @Column(name = "pag_cvc")
     private int cvc;
 
+    @Column(name = "pag_validade")
+    private String dataValidade;
+
     @Column(name = "pag_nome_titular")
     private String nomeTitular;
 
     @Column(name = "pag_cpf")
     private String cpf;
+
+
+    private Cliente cliente;
 
     @Column(name = "pag_observacoes")
     private String observacoes;
@@ -32,13 +38,15 @@ public class FormaPagamento {
     public FormaPagamento() {
     }
 
-    public FormaPagamento(long id, int numeroCartao, String marcaCartao, int cvc, String nomeTitular, String cpf, String observacoes) {
+    public FormaPagamento(long id, int numeroCartao, String marcaCartao, int cvc, String dataValidade, String nomeTitular, String cpf, Cliente cliente, String observacoes) {
         this.id = id;
         this.numeroCartao = numeroCartao;
         this.marcaCartao = marcaCartao;
         this.cvc = cvc;
+        this.dataValidade = dataValidade;
         this.nomeTitular = nomeTitular;
         this.cpf = cpf;
+        this.cliente = cliente;
         this.observacoes = observacoes;
     }
 
@@ -74,6 +82,14 @@ public class FormaPagamento {
         this.cvc = cvc;
     }
 
+    public String getDataValidade() {
+        return dataValidade;
+    }
+
+    public void setDataValidade(String dataValidade) {
+        this.dataValidade = dataValidade;
+    }
+
     public String getNomeTitular() {
         return nomeTitular;
     }
@@ -94,20 +110,17 @@ public class FormaPagamento {
         return observacoes;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
 
-    @Override
-    public String toString() {
-        return "FormaPagamento{" +
-                "id=" + id +
-                ", numeroCartao=" + numeroCartao +
-                ", marcaCartao='" + marcaCartao + '\'' +
-                ", cvc=" + cvc +
-                ", nomeTitular='" + nomeTitular + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", observacoes='" + observacoes + '\'' +
-                '}';
-    }
+
 }

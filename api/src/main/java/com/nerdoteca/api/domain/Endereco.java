@@ -21,7 +21,7 @@ public class Endereco {
     private String tipoResidencia;
 
     @Column(name = "end_cep")
-    private String cep;
+    private int cep;
 
     @Column(name = "end_logradouro")
     private String logradouro;
@@ -39,13 +39,15 @@ public class Endereco {
     @JoinColumn(name = "end_cid_id")
     private Cidade cidade;
 
+    private Cliente cliente;
+
     @Column(name = "end_observacoes")
     private String observacoes;
 
     public Endereco() {
     }
 
-    public Endereco(long id, String nomeEndereco, String tipoEndereco, String tipoResidencia, String cep, String logradouro, String tipoLogradouro, int numero, String bairro, Cidade cidade, String observacoes) {
+    public Endereco(long id, String nomeEndereco, String tipoEndereco, String tipoResidencia, int cep, String logradouro, String tipoLogradouro, int numero, String bairro, Cidade cidade, String observacoes) {
         this.id = id;
         this.nomeEndereco = nomeEndereco;
         this.tipoEndereco = tipoEndereco;
@@ -91,11 +93,11 @@ public class Endereco {
         this.tipoResidencia = tipoResidencia;
     }
 
-    public String getCep() {
+    public int getCep() {
         return cep;
     }
 
-    public void setCep(String cep) {
+    public void setCep(int cep) {
         this.cep = cep;
     }
 
@@ -139,6 +141,14 @@ public class Endereco {
         this.cidade = cidade;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public String getObservacoes() {
         return observacoes;
     }
@@ -147,20 +157,4 @@ public class Endereco {
         this.observacoes = observacoes;
     }
 
-    @Override
-    public String toString() {
-        return "Endereco{" +
-                "id=" + id +
-                ", nomeEndereco='" + nomeEndereco + '\'' +
-                ", tipoEndereco='" + tipoEndereco + '\'' +
-                ", tipoResidencia='" + tipoResidencia + '\'' +
-                ", cep='" + cep + '\'' +
-                ", logradouro='" + logradouro + '\'' +
-                ", tipoLogradouro='" + tipoLogradouro + '\'' +
-                ", numero=" + numero +
-                ", bairro='" + bairro + '\'' +
-                ", cidade=" + cidade +
-                ", observacoes='" + observacoes + '\'' +
-                '}';
-    }
 }

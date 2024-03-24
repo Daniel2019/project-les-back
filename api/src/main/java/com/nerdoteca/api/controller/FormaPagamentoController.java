@@ -57,6 +57,7 @@ public class FormaPagamentoController {
     public String deletarFormaPagamento(@PathVariable long id){
         String message = "";
         try{
+            formaPagamentoRepository.deleteById(id);
             message = "Forma de Pagamento deletado com sucesso";
         }catch (Exception error){
             message = "Forma de Pagamento nao deletado";
