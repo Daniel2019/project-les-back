@@ -1,5 +1,6 @@
 package com.nerdoteca.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -29,7 +30,9 @@ public class FormaPagamento {
     @Column(name = "pag_cpf")
     private String cpf;
 
-
+    @ManyToOne
+    @JoinColumn(name = "pag_cli_id")
+    @JsonBackReference
     private Cliente cliente;
 
     @Column(name = "pag_observacoes")

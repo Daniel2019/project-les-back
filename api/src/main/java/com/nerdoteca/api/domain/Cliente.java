@@ -1,5 +1,6 @@
 package com.nerdoteca.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -10,6 +11,7 @@ public class Cliente extends Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cli_id")
     private long id;
 
     @Column(name = "cli_cpf")
@@ -27,9 +29,6 @@ public class Cliente extends Usuario {
     @Column(name = "cli_senha")
     private String senha;
 
-    @Column(name = "cli_endereco_residencial")
-    private Endereco enderecoResidencial;
-
     @Column(name = "cli_genero")
     private String genero;
 
@@ -38,21 +37,29 @@ public class Cliente extends Usuario {
 
     @Column(name = "cli_status")
     private String status;
+
+    @OneToMany(mappedBy = "cliente")
+    @JsonManagedReference
     private List<Cupom> cupons;
+
+    @OneToMany(mappedBy = "cliente")
+    @JsonManagedReference
     private List<Endereco> enderecosEntrega;
+
+    @OneToMany(mappedBy = "cliente")
+    @JsonManagedReference
     private List<FormaPagamento> formaPagamentos;
 
     public Cliente() {
     }
 
-    public Cliente(long id, String cpf, String nome, String sobrenome, String email, String senha, Endereco enderecoResidencial, String genero, String dataNascimento, String status, List<Cupom> cupons, List<Endereco> enderecosEntrega, List<FormaPagamento> formaPagamentos) {
+    public Cliente(long id, String cpf, String nome, String sobrenome, String email, String senha, String genero, String dataNascimento, String status, List<Cupom> cupons, List<Endereco> enderecosEntrega, List<FormaPagamento> formaPagamentos) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
         this.senha = senha;
-        this.enderecoResidencial = enderecoResidencial;
         this.genero = genero;
         this.dataNascimento = dataNascimento;
         this.status = status;
@@ -110,14 +117,6 @@ public class Cliente extends Usuario {
         this.senha = senha;
     }
 
-    public Endereco getEnderecoResidencial() {
-        return enderecoResidencial;
-    }
-
-    public void setEnderecoResidencial(Endereco enderecoResidencial) {
-        this.enderecoResidencial = enderecoResidencial;
-    }
-
     public String getGenero() {
         return genero;
     }
@@ -150,6 +149,16 @@ public class Cliente extends Usuario {
         this.cupons = cupons;
     }
 
+    public void adicionarCupom(Cupom cupom) {
+        this.cupons.add(cupom);
+        cupom.setCliente(this);
+    }
+
+    public void removerCupom(Cupom cupom) {
+        this.cupons.remove(cupom);
+        cupom.setCliente(null);
+    }
+
     public List<Endereco> getEnderecosEntrega() {
         return enderecosEntrega;
     }
@@ -158,11 +167,31 @@ public class Cliente extends Usuario {
         this.enderecosEntrega = enderecosEntrega;
     }
 
+    public void adicionarEndereco(Endereco endereco) {
+        this.enderecosEntrega.add(endereco);
+        endereco.setCliente(this);
+    }
+
+    public void removerEndereco(Endereco endereco) {
+        this.enderecosEntrega.remove(endereco);
+        endereco.setCliente(null);
+    }
+
     public List<FormaPagamento> getFormaPagamentos() {
         return formaPagamentos;
     }
 
     public void setFormaPagamentos(List<FormaPagamento> formaPagamentos) {
         this.formaPagamentos = formaPagamentos;
+    }
+
+    public void adicionarEndereco(FormaPagamento formaPagamento) {
+        this.formaPagamentos.add(formaPagamento);
+        formaPagamento.setCliente(this);
+    }
+
+    public void removerFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamentos.remove(formaPagamento);
+        formaPagamento.setCliente(null);
     }
 }

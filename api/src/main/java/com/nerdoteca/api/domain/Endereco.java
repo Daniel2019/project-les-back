@@ -1,5 +1,6 @@
 package com.nerdoteca.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -39,6 +40,9 @@ public class Endereco {
     @JoinColumn(name = "end_cid_id")
     private Cidade cidade;
 
+    @ManyToOne
+    @JoinColumn(name = "end_cli_id")
+    @JsonBackReference
     private Cliente cliente;
 
     @Column(name = "end_observacoes")

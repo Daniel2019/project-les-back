@@ -1,5 +1,6 @@
 package com.nerdoteca.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -24,6 +25,9 @@ public class Cupom {
     @Column(name = "cup_status")
     private String status;
 
+    @ManyToOne
+    @JoinColumn(name = "cup_cli_id")
+    @JsonBackReference
     private Cliente cliente;
 
     public Cupom() {
