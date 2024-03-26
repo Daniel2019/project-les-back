@@ -1,7 +1,9 @@
 package com.nerdoteca.api.controller;
 
 import com.nerdoteca.api.domain.Cliente;
+import com.nerdoteca.api.domain.Endereco;
 import com.nerdoteca.api.repository.ClienteRepository;
+import com.nerdoteca.api.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,9 @@ public class ClienteController {
 
     @Autowired
     ClienteRepository clienteRepository;
+
+    @Autowired
+    EnderecoRepository enderecoRepository;
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/listar")
@@ -33,9 +38,12 @@ public class ClienteController {
     @PostMapping("/cadastrar")
     public String cadastrarCliente(@RequestBody Cliente cliente) {
         String message = "";
-
         try {
-            clienteRepository.saveAndFlush(cliente);
+            cliente = clienteRepository.saveAndFlush(cliente);
+            Endereco endereco = cliente.getEnderecosEntrega().get(0);
+            enderecoRepository.saveAndFlush(endereco);
+            endereco.setCliente(cliente);
+            message = "Cliente cadastrado";
         }catch (Exception error){
             message = "Cliente nao cadastrado";
         }

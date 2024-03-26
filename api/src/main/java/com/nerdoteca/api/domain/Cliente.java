@@ -38,6 +38,15 @@ public class Cliente extends Usuario {
     @Column(name = "cli_status")
     private String status;
 
+    @Column(name = "cli_tipo_contato")
+    private String tipoContato;
+
+    @Column(name = "cli_ddd")
+    private int ddd;
+
+    @Column(name = "cli_numero")
+    private int numeroTelefone;
+
     @OneToMany(mappedBy = "cliente")
     @JsonManagedReference
     private List<Cupom> cupons;
@@ -53,7 +62,7 @@ public class Cliente extends Usuario {
     public Cliente() {
     }
 
-    public Cliente(long id, String cpf, String nome, String sobrenome, String email, String senha, String genero, String dataNascimento, String status, List<Cupom> cupons, List<Endereco> enderecosEntrega, List<FormaPagamento> formaPagamentos) {
+    public Cliente(long id, String cpf, String nome, String sobrenome, String email, String senha, String genero, String dataNascimento, String status, String tipoContato, int ddd, int numeroTelefone, List<Cupom> cupons, List<Endereco> enderecosEntrega, List<FormaPagamento> formaPagamentos) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
@@ -63,6 +72,9 @@ public class Cliente extends Usuario {
         this.genero = genero;
         this.dataNascimento = dataNascimento;
         this.status = status;
+        this.tipoContato = tipoContato;
+        this.ddd = ddd;
+        this.numeroTelefone = numeroTelefone;
         this.cupons = cupons;
         this.enderecosEntrega = enderecosEntrega;
         this.formaPagamentos = formaPagamentos;
@@ -139,6 +151,30 @@ public class Cliente extends Usuario {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getTipoContato() {
+        return tipoContato;
+    }
+
+    public void setTipoContato(String tipoContato) {
+        this.tipoContato = tipoContato;
+    }
+
+    public int getDdd() {
+        return ddd;
+    }
+
+    public void setDdd(int ddd) {
+        this.ddd = ddd;
+    }
+
+    public int getNumeroTelefone() {
+        return numeroTelefone;
+    }
+
+    public void setNumeroTelefone(int numeroTelefone) {
+        this.numeroTelefone = numeroTelefone;
     }
 
     public List<Cupom> getCupons() {
