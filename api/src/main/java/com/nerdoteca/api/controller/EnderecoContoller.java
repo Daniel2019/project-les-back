@@ -1,9 +1,13 @@
 package com.nerdoteca.api.controller;
 
+import com.nerdoteca.api.domain.Cidade;
 import com.nerdoteca.api.domain.Cliente;
 import com.nerdoteca.api.domain.Endereco;
+import com.nerdoteca.api.domain.Estado;
+import com.nerdoteca.api.repository.CidadeRepository;
 import com.nerdoteca.api.repository.ClienteRepository;
 import com.nerdoteca.api.repository.EnderecoRepository;
+import com.nerdoteca.api.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +20,12 @@ public class EnderecoContoller {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private EstadoRepository estadoRepository;
+
+    @Autowired
+    private CidadeRepository cidadeRepository;
 
     @Autowired
     private EnderecoRepository enderecoRepository;
@@ -47,8 +57,19 @@ public class EnderecoContoller {
         String message = "";
 
         try {
+
             Optional<Cliente> clienteExiste = clienteRepository.findById(endereco.getCliente().getId());
             endereco.setCliente(clienteExiste.get());
+
+            List<Cidade> cidade = cidadeRepository.findCidadeByNome(endereco.getCidade().getNome(), endereco.getCidade().getEstado().getSigla());
+            if(cidade.size() > 0){
+                endereco.setCidade(cidade.get(0));
+            }else{
+                List<Estado> estado = estadoRepository.findEstadosBySigla(endereco.getCidade().getEstado().getSigla());
+                endereco.getCidade().setEstado(estado.get(0));
+                endereco.setCidade(cidadeRepository.saveAndFlush(endereco.getCidade()));
+            }
+
             enderecoRepository.saveAndFlush(endereco);
             message = "Endereco cadastrado com sucesso!";
         }catch (Exception error){
@@ -64,6 +85,16 @@ public class EnderecoContoller {
         enderecoRepository.findById(id);
         Optional<Cliente> clienteExiste = clienteRepository.findById(endereco.getCliente().getId());
         endereco.setCliente(clienteExiste.get());
+
+        List<Cidade> cidade = cidadeRepository.findCidadeByNome(endereco.getCidade().getNome(), endereco.getCidade().getEstado().getSigla());
+        if(cidade.size() > 0){
+            endereco.setCidade(cidade.get(0));
+        }else{
+            List<Estado> estado = estadoRepository.findEstadosBySigla(endereco.getCidade().getEstado().getSigla());
+            endereco.getCidade().setEstado(estado.get(0));
+            endereco.setCidade(cidadeRepository.saveAndFlush(endereco.getCidade()));
+        }
+
         enderecoRepository.saveAndFlush(endereco);
         return endereco;
     }

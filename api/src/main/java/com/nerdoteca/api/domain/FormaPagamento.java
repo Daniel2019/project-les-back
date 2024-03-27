@@ -125,5 +125,19 @@ public class FormaPagamento {
         this.observacoes = observacoes;
     }
 
+    @Override
+    public String toString() {
+        return "FormaPagamento{" +
+                "id=" + id +
+                ", numeroCartao=" + numeroCartao +
+                ", marcaCartao='" + marcaCartao + '\'' +
+                ", cvc=" + cvc +
+                ", dataValidade='" + dataValidade + '\'' +
+                ", nomeTitular='" + nomeTitular + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", cliente=" + cliente +
+                ", observacoes='" + observacoes + '\'' +
+                '}';
+    }
 
 }

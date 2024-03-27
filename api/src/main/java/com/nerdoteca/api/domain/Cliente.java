@@ -230,4 +230,25 @@ public class Cliente extends Usuario {
         this.formaPagamentos.remove(formaPagamento);
         formaPagamento.setCliente(null);
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", cpf='" + cpf + '\'' +
+                ", nome='" + nome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", genero='" + genero + '\'' +
+                ", dataNascimento='" + dataNascimento + '\'' +
+                ", status='" + status + '\'' +
+                ", tipoContato='" + tipoContato + '\'' +
+                ", ddd=" + ddd +
+                ", numeroTelefone=" + numeroTelefone +
+                ", cupons=" + cupons +
+                ", enderecosEntrega=" + enderecosEntrega +
+                ", formaPagamentos=" + formaPagamentos +
+                '}';
+    }
 }

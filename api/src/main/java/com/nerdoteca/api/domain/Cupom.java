@@ -33,7 +33,6 @@ public class Cupom {
     public Cupom() {
     }
 
-
     public Cupom(long id, float valor, String dataValidade, String tipo, String status, Cliente cliente) {
         this.id = id;
         this.valor = valor;
@@ -89,5 +88,17 @@ public class Cupom {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    @Override
+    public String toString() {
+        return "Cupom{" +
+                "id=" + id +
+                ", valor=" + valor +
+                ", dataValidade='" + dataValidade + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", status='" + status + '\'' +
+                ", cliente=" + cliente +
+                '}';
     }
 }

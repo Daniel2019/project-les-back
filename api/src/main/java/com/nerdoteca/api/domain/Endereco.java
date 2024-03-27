@@ -161,4 +161,21 @@ public class Endereco {
         this.observacoes = observacoes;
     }
 
+    @Override
+    public String toString() {
+        return "Endereco{" +
+                "id=" + id +
+                ", nomeEndereco='" + nomeEndereco + '\'' +
+                ", tipoEndereco='" + tipoEndereco + '\'' +
+                ", tipoResidencia='" + tipoResidencia + '\'' +
+                ", cep=" + cep +
+                ", logradouro='" + logradouro + '\'' +
+                ", tipoLogradouro='" + tipoLogradouro + '\'' +
+                ", numero=" + numero +
+                ", bairro='" + bairro + '\'' +
+                ", cidade=" + cidade +
+                ", cliente=" + cliente +
+                ", observacoes='" + observacoes + '\'' +
+                '}';
+    }
 }
